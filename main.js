@@ -1,10 +1,9 @@
-import { API_KEY } from "./config.js";
 
 
 const ratedContainer = document.querySelector(".top-rated");
 const movieContainer = document.querySelector(".menu-movies");
 
-const apiKey = API_KEY;
+const apiKey = "7ee97ee3a7d032fcfe7002b6b8a871e0";
 const baseUrl = "https://api.themoviedb.org/3";
 const imageUrl = "https://image.tmdb.org/t/p/original";
 
