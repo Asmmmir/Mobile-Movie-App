@@ -1,5 +1,3 @@
-
-
 const ratedContainer = document.querySelector(".top-rated");
 const movieContainer = document.querySelector(".menu-movies");
 
