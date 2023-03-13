@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
 
 
 :root {
@@ -24,15 +25,9 @@ body {
 
 }
 
-img {
-    border-radius: 16px
-}
-
-
 
 #app {
-    margin-top:50px;
-    width: 375px;
+    max-width: 375px;
     max-height: 812px;
 
     display: flex;
@@ -40,8 +35,14 @@ img {
     justify-content: center;
     flex-direction: column;
 
-
+    padding: 10px;
+    margin-top: 10px;
 }
+
+img {
+    border-radius: 16px
+}
+
 
 
 /* SEARCH BAR */
@@ -136,7 +137,7 @@ img {
     list-style: none;
     color: white;
     margin-left: 12px;
-    padding: 5px;
+    padding: 2px;
     cursor: pointer;
     font-size: 14px;
 }
@@ -145,7 +146,7 @@ img {
     margin-left: 0;
 }
 
-.menu-bar li:active {
+.menu-bar li.active {
     border-bottom: 4px solid #3a3f47;
 
 }
@@ -207,4 +208,120 @@ img {
     flex-direction: column;
     color: #67686D;
 
+}
+
+.nav-icon .fa.selected {
+    color: #0296E5;
+
+}
+
+.nav-icon p.selected {
+    color: #0296E5;
+
+}
+
+
+
+
+
+
+/* MOVIE SECTION */
+
+
+
+
+
+
+.nav {
+    font-family: 'Montserrat';
+    color: #ECECEC;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav a {
+    color: #ECECEC;
+}
+
+
+
+/* MOVIE TITLE */
+
+
+.movie_container {
+    position: relative;
+}
+
+.movie_title {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+
+    margin-top: -60px;
+
+    z-index: 10;
+
+}
+
+.movie_title p {
+    margin: 0;
+    width: 60%;
+    color: white;
+}
+
+
+
+/* ABOUT MOVIE */
+
+.movie_details {
+    color: #696974;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+
+
+/* MOVIE NAV  */
+
+
+.movie_nav {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.movie_nav ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.movie_nav li {
+    list-style: none;
+    padding: 15px;
+}
+
+.movie_nav li.active {
+    border-bottom: 4px solid #3A3F47;
+}
+
+.movie_nav_option {
+    cursor: pointer;
 }
