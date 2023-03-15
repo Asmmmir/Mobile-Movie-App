@@ -3,6 +3,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
 
 
+
+
+
+
+
+
 :root {
     --default-color: #242A32
 }
@@ -28,16 +34,20 @@ body {
 
 #app {
     max-width: 375px;
-    min-height: 812px;
-
+    min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-direction: column;
 
-    padding: 10px;
     margin-top: 10px;
 }
+
+
+
+
+
+
 
 #app-detail {
 
@@ -48,12 +58,6 @@ body {
     flex-direction: column;
 
     padding: 10px;
-
-
-
-
-
-
 
 }
 
@@ -215,7 +219,7 @@ img {
 
     background-color: var(--default-color);
     margin-top: 30px;
-    width: 375px;
+    width: 100%;
     z-index: 10;
 }
 
@@ -365,7 +369,6 @@ img {
 
 #watch-list_app {
     width: 375px;
-    height: 812px;
 
     display: flex;
     align-items: center;
@@ -450,6 +453,39 @@ img {
 
 
 
+
+@media only screen and (max-width: 374px) {
+    #app {
+
+      margin-top: 5px;
+      width: 100vw;
+      max-height: 100vh;
+      min-height: max-content;
+    }
+
+    #app-detail {
+
+        width: 100vw;
+        min-height: max-content;
+
+    
+    }
+
+}
+
+
+
+@media only screen and (min-height:668) {
+    #app-detail {
+
+        width: 100vw;
+        min-height: max-content;
+
+    
+    }
+
+
+}
 
 
 
