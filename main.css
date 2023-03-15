@@ -28,7 +28,7 @@ body {
 
 #app {
     max-width: 375px;
-    max-height: 812px;
+    min-height: 812px;
 
     display: flex;
     align-items: center;
@@ -38,6 +38,26 @@ body {
     padding: 10px;
     margin-top: 10px;
 }
+
+#app-detail {
+
+    max-width: 375px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    padding: 10px;
+
+
+
+
+
+
+
+}
+
+
 
 img {
     border-radius: 16px
@@ -84,7 +104,7 @@ img {
 
 .top-rated {
     margin-top: 21px;
-    max-width: 90%;
+    max-width: 100%;
     min-height: 250px;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -220,6 +240,9 @@ img {
 
 }
 
+.selected {
+    color: #0296E5;
+}
 
 
 
@@ -325,4 +348,130 @@ img {
 .movie_nav_option {
     cursor: pointer;
 }
+
+.search-movies {
+    margin-top: 21px;
+    max-width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem
+}
+
+.search-movies::-webkit-scrollbar {
+    display: none;
+}
+
+#watch-list_app {
+    width: 375px;
+    height: 812px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.watch-list_nav {
+    font-family: 'Montserrat';
+    width: 100%;
+    color: #ECECEC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 44px;
+}
+
+.watch-list_nav a  {
+    color: #ECECEC;
+    width: 70%;
+}
+
+.watch-list_nav p {
+    width: 100%;
+}
+
+/* WATCH LIST  */
+
+
+.saved-movies {
+    height: 100%;
+    width: 100%;
+    
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    }
+    
+    
+    .saved-movies_info{
+    color: white;
+    font-size: 12px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 70%;
+    margin-left: 10px;
+    
+    }
+    
+    .saved-movies_info p {
+        margin: 0;
+    }
+
+    
+    .saved_item {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+    
+        margin-bottom: 24px;
+    }
+    
+    .info {
+        display: flex;
+    }
+    
+    .info p {
+        margin-left: 4px;
+    }
+    
+
+.hidden {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
