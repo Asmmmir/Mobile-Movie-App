@@ -130,7 +130,7 @@ const getMovieInfo = async (id) => {
 
   function addToWatchList() {
     if (!bookmark.classList.contains("selected")) {
-      watchList.push(movieInfo.id);
+      watchList.unshift(movieInfo.id);
       localStorage.setItem("watchList", JSON.stringify(watchList));
       bookmark.classList.toggle("selected");
     } else {
