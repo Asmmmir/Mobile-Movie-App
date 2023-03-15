@@ -91,6 +91,7 @@ img {
     overflow-y: hidden;
     display: flex;
     justify-content: flex-start;
+    flex-direction: row;
 }
 
 .top-rated-movie {
@@ -153,8 +154,7 @@ img {
 
 
 .menu-movies {
-    width: 100%;
-    height: 300px;
+    max-height: 293px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -166,12 +166,6 @@ img {
 .menu-movies::-webkit-scrollbar {
     display: none;
 }
-
-.menu-movies_item {
-    border-radius: 15px;
-    width: 26%;
-}
-
 
 
 /* NAV ICONS */
@@ -413,23 +407,27 @@ img {
         min-width: 300px;
     }
     .top-rated {
-        flex-direction: column;
         max-height: 250px;
         overflow-x: hidden;
         overflow-y: scroll;
+        max-width: 80%;
     }
     .movie-number {
         z-index: 10;
     }
     .menu-movies {
-        flex-wrap: nowrap;
-        flex-direction: column;
+        width: 100%;
     }
 }
 
 @media only screen and (max-width:340px) {
     .search-bar input {
         min-width: 100px;
+    }
+    .top-rated {
+        max-width: 65%;
+        overflow-x: scroll;
+        overflow-y: hidden
     }
 }
 

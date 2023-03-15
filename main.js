@@ -256,7 +256,6 @@ const searchMovies = async (e) => {
       getMovieInfo(movie.id);
     });
   }
-  а;
 };
 
 const getWatchList = async () => {
