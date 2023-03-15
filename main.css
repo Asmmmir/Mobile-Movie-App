@@ -397,7 +397,6 @@ img {
 @media only screen and (max-width: 374px) {
     #app {
         width: 100vw;
-        min-height: max-content;
     }
     #app-detail {
         width: 100vw;
