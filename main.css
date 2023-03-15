@@ -27,7 +27,7 @@ body {
 
 
 #app {
-    max-width: 30vw;
+    max-width: 375px;
     min-height: 812px;
 
     display: flex;
