@@ -25,7 +25,7 @@ body {
 
 #app {
     max-width: 375px;
-    min-height: max-content;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
