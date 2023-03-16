@@ -116,6 +116,11 @@ const getMovieInfo = async (id) => {
   `;
   const bookmark = document.querySelector(".bookmark");
 
+  if (watchList.includes(movieInfo.id)) {
+    let selectedMovie = document.getElementById(`${movieInfo.id}`);
+    selectedMovie.classList.add("selected");
+  }
+
   const movieNavOptions = document.querySelectorAll(".movie_nav_option");
 
   movieNavOptions.forEach((option) => {
@@ -128,12 +133,17 @@ const getMovieInfo = async (id) => {
   bookmark.addEventListener("click", addToWatchList);
 
   function addToWatchList() {
+    const removeBookmark = (id) => {
+      watchList = watchList.filter((movieId) => movieId != id);
+      localStorage.setItem("watchList", JSON.stringify(watchList));
+    };
+
     if (!watchList.includes(movieInfo.id)) {
       watchList.unshift(movieInfo.id);
       localStorage.setItem("watchList", JSON.stringify(watchList));
       bookmark.classList.add("selected");
     } else if (watchList.includes(movieInfo.id)) {
-      watchList.shift();
+      removeBookmark(movieInfo.id);
       bookmark.classList.remove("selected");
       localStorage.setItem("watchList", JSON.stringify(watchList));
     }
@@ -221,6 +231,8 @@ navElements.forEach((el) => {
     switchSelected(el);
   });
 });
+
+
 
 function searchFocus() {
   const input = document.querySelector(".input");
@@ -311,7 +323,6 @@ const getWatchList = async () => {
     deleteButtons.forEach((button) => {
       button.addEventListener("click", () => {
         const movieId = button.id;
-        console.log(movieId);
         removeMovieFromWatchList(movieId);
       });
     });
