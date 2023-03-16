@@ -104,16 +104,50 @@ const getMovieInfo = async (id) => {
 
       <div class="movie_nav">
         <ul>
-          <li class="movie_nav_option active">About Movie</li>
+          <li class="movie_nav_option about-movie active">About Movie</li>
           <li class='movie_nav_option reviews'>Reviews</li>
         </ul>
 
-        <p>
+        <p class='detail-container'>
        ${movieInfo.overview}
         </p>
       </div>
     </div>
   `;
+
+  const review = document.querySelector(".reviews");
+  const aboutMovie = document.querySelector(".about-movie");
+
+  aboutMovie.addEventListener("click", async () => {
+    const response = await fetch(`${baseUrl}/movie/${id}?api_key=${apiKey}`);
+    const movieInfo = await response.json();
+    const detailContainer = document.querySelector(".detail-container");
+
+    detailContainer.innerHTML = "";
+    detailContainer.innerHTML += `
+    <p>${movieInfo.overview}</p>
+    </div>
+    `;
+  });
+
+  review.addEventListener("click", async () => {
+    const response = await fetch(
+      `${baseUrl}/movie/${id}/reviews?api_key=${apiKey}`
+    );
+    const { results } = await response.json();
+    const detailContainer = document.querySelector(".detail-container");
+
+    results.map(({ author, content, author_details }) => {
+      detailContainer.innerHTML = "";
+      detailContainer.innerHTML += `
+    <div class='review-container'>
+    <p style='color:cyan'>${author}</p>
+    <p>${content}</p>
+    </div>
+    `;
+    });
+  });
+
   const bookmark = document.querySelector(".bookmark");
 
   if (watchList.includes(movieInfo.id)) {
@@ -231,8 +265,6 @@ navElements.forEach((el) => {
     switchSelected(el);
   });
 });
-
-
 
 function searchFocus() {
   const input = document.querySelector(".input");
