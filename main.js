@@ -129,14 +129,14 @@ const getMovieInfo = async (id) => {
   bookmark.addEventListener("click", addToWatchList);
 
   function addToWatchList() {
-    if (!bookmark.classList.contains("selected")) {
+    if (!watchList.includes(movieInfo.id)) {
       watchList.unshift(movieInfo.id);
       localStorage.setItem("watchList", JSON.stringify(watchList));
-      bookmark.classList.toggle("selected");
-    } else {
-      watchList.pop();
+      bookmark.classList.add("selected");
+    } else if (watchList.includes(movieInfo.id)) {
+      watchList.shift();
+      bookmark.classList.remove("selected");
       localStorage.setItem("watchList", JSON.stringify(watchList));
-      bookmark.classList.toggle("selected");
     }
   }
 };
@@ -230,8 +230,6 @@ function searchFocus() {
 
 const input = document.querySelector(".input");
 
-
-
 const searchMovies = async (e) => {
   if (e.key == "Enter") {
     const searchContainer = document.querySelector(".search-movies");
@@ -259,9 +257,7 @@ const searchMovies = async (e) => {
 };
 
 const getWatchList = async () => {
-
-
-    body.innerHTML = `
+  body.innerHTML = `
     <div id="watch-list_app">
     <div class="watch-list_nav">
       <a href="index.html"> <i class="fa fa-angle-left"></i></a>
@@ -273,8 +269,7 @@ const getWatchList = async () => {
 
     `;
 
-
-let savedMovies = document.querySelector('.saved-movies')
+  let savedMovies = document.querySelector(".saved-movies");
 
   watchList.map(async (id) => {
     const response = await fetch(`${baseUrl}/movie/${id}?api_key=${apiKey}`);
@@ -285,10 +280,16 @@ let savedMovies = document.querySelector('.saved-movies')
     <img src="${imageUrl}${movieInfo.poster_path}" alt="" width="95px">
     
         <div class="saved-movies_info">
-          <p style='margin-bottom:14px' class='saved-movies_title'>${movieInfo.title}</p>
+          <p style='margin-bottom:14px' class='saved-movies_title'>${
+            movieInfo.title
+          } <i id=${movieInfo.id} class='fa fa-trash delete-btn'></i></p>
           <div class="rating info">
-            <i style=${movieInfo.vote_average < 6 ? 'color:red' : 'color:yellow'} class="fa fa-star"></i>
-            <p style=${movieInfo.vote_average < 6 ? 'color:red' : 'color:yellow'} >${movieInfo.vote_average.toPrecision(2)}</p>
+            <i style=${
+              movieInfo.vote_average < 6 ? "color:red" : "color:yellow"
+            } class="fa fa-star"></i>
+            <p style=${
+              movieInfo.vote_average < 6 ? "color:red" : "color:yellow"
+            } >${movieInfo.vote_average.toPrecision(2)}</p>
           </div>
           <div class="genre info">
             <i class="fa fa-ticket"></i>
@@ -307,19 +308,28 @@ let savedMovies = document.querySelector('.saved-movies')
       </div>
     `;
 
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const movieId = button.id;
+        console.log(movieId);
+        removeMovieFromWatchList(movieId);
+      });
+    });
 
+    const removeMovieFromWatchList = (id) => {
+      watchList = watchList.filter((movieId) => movieId != id);
+      localStorage.setItem("watchList", JSON.stringify(watchList));
 
-
+      getWatchList();
+    };
   });
 
   for (let movie of movies) {
     movie.addEventListener("click", () => {
       getMovieInfo(movie.id);
-    })}
-
-
-
-
+    });
+  }
 };
 
 let movies = document.getElementsByClassName("movie");
