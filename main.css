@@ -233,6 +233,10 @@ img {
     position: relative;
 }
 
+.movie_container img {
+    width: 100%;
+}
+
 .movie_title {
     width: 100%;
     display: flex;
@@ -427,6 +431,10 @@ img {
     .menu-movies {
         width: 100%;
     }
+
+    .nav {
+        justify-content: space-around;
+    }
 }
 
 @media only screen and (max-width:340px) {
@@ -440,9 +448,8 @@ img {
     }
 }
 
-@media only screen and (min-height:668) {
+@media only screen and (max-height:668) {
     #app-detail {
-        width: 100vw;
-        min-height: max-content;
+
     }
 }

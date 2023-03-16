@@ -81,7 +81,6 @@ const getMovieInfo = async (id) => {
         <img
           src="https://image.tmdb.org/t/p/original/${movieInfo.backdrop_path}"
           alt=""
-          width="375px"
         />
       </div>
       <div class="movie_title">
