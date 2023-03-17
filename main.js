@@ -9,12 +9,60 @@ const toprated = document.querySelector(".toprated");
 const search = document.querySelector(".search");
 const watchListPage = document.querySelector(".watch-list");
 let watchList = JSON.parse(localStorage.getItem("watchList")) || [];
-
+const paginationContainer = document.querySelector('.pagination')
 const body = document.body;
 
 const apiKey = "7ee97ee3a7d032fcfe7002b6b8a871e0";
 const baseUrl = "https://api.themoviedb.org/3";
 const imageUrl = "https://image.tmdb.org/t/p/original";
+let activeType = 'popular';
+let currentPage = 1;
+
+// PAGINATION CREATOR 
+
+for(let i = 1; i<=500;i++){
+  paginationContainer.innerHTML += `
+  <li class='page'>${i}</li>
+  
+  `
+}
+
+
+   async function renderMoviesByType (type) {
+      let response = await fetch(`${baseUrl}/movie/${type}?api_key=${apiKey}&page=${currentPage}`);
+      let { results } = await response.json();
+     
+      if (document.querySelector('.menu_option.popular').classList.contains('active')) {
+        activeType = 'popular';
+      } else if (document.querySelector('.menu_option.toprated').classList.contains('active')) {
+        activeType = 'top_rated';
+      } else if (document.querySelector('.menu_option.upcoming').classList.contains('active')) {
+        activeType = 'upcoming';
+      }
+
+      
+
+      movieContainer.innerHTML = results
+        .map(
+          ({ poster_path, id }) => `
+            <div id=${id} class="menu-movies_item movie">
+              <img src="${imageUrl}${poster_path}" alt="" width="100px">
+            </div>
+          `
+        )
+        .join("");
+    
+      for (let movie of movies) {
+        movie.addEventListener("click", () => {
+          getMovieInfo(movie.id);
+        });
+      }
+    };
+
+
+
+
+
 
 // GETTING RATED MOVIES
 
@@ -33,10 +81,15 @@ const getTopRatedMovies = async () => {
     .join("");
 };
 
+
+
+
+
+
 // GETTING MOVIES
 
 const getMovies = async () => {
-  const response = await fetch(`${baseUrl}/movie/popular?api_key=${apiKey}`);
+  const response = await fetch(`${baseUrl}/movie/popular?api_key=${apiKey}&page=1`);
   const { results } = await response.json();
 
   movieContainer.innerHTML = results
@@ -61,7 +114,13 @@ const getMovies = async () => {
       option.classList.add("active");
     });
   });
+
+
+
+
 };
+
+
 
 // GETTING INFORMATION
 
@@ -108,9 +167,9 @@ const getMovieInfo = async (id) => {
           <li class='movie_nav_option reviews'>Reviews</li>
         </ul>
 
-        <p class='detail-container'>
+        <div class='detail-container'>
        ${movieInfo.overview}
-        </p>
+        </div>
       </div>
     </div>
   `;
@@ -134,15 +193,18 @@ const getMovieInfo = async (id) => {
     const response = await fetch(
       `${baseUrl}/movie/${id}/reviews?api_key=${apiKey}`
     );
-    const { results } = await response.json();
+    const { results,total_pages } = await response.json();
     const detailContainer = document.querySelector(".detail-container");
 
-    results.map(({ author, content, author_details }) => {
+    results.map(({ author, content}) => {
       detailContainer.innerHTML = "";
       detailContainer.innerHTML += `
     <div class='review-container'>
-    <p style='color:cyan'>${author}</p>
-    <p>${content}</p>
+    <div class='review_person'>
+    <i class='fa fa-user'></i>
+    <p style='font-weight:bold;color:cyan'>${author}</p>
+    </div>
+    <p>${total_pages == 0?'No reviews yet':content}</p>
     </div>
     `;
     });
@@ -184,66 +246,8 @@ const getMovieInfo = async (id) => {
   }
 };
 
-const upcomingMovie = async () => {
-  const response = await fetch(`${baseUrl}/movie/upcoming?api_key=${apiKey}`);
-  const { results } = await response.json();
-  movieContainer.innerHTML = results
-    .map(
-      ({ poster_path, id }) => `
-      <div id=${id} class="menu-movies_item movie">
-        <img src="${imageUrl}${poster_path}" alt="" width="100px">
-      </div>
-    `
-    )
-    .join("");
 
-  for (let movie of movies) {
-    movie.addEventListener("click", () => {
-      getMovieInfo(movie.id);
-    });
-  }
-};
 
-const topRatedMovies = async () => {
-  const response = await fetch(`${baseUrl}/movie/top_rated?api_key=${apiKey}`);
-  const { results } = await response.json();
-  movieContainer.innerHTML = results
-    .map(
-      ({ poster_path, id }) => `
-      <div id=${id} class="menu-movies_item movie">
-        <img src="${imageUrl}${poster_path}" alt="" width="100px">
-      </div>
-    `
-    )
-    .join("");
-
-  for (let movie of movies) {
-    movie.addEventListener("click", () => {
-      getMovieInfo(movie.id);
-    });
-  }
-};
-
-const popularMovies = async () => {
-  const response = await fetch(`${baseUrl}/movie/popular?api_key=${apiKey}`);
-  const { results } = await response.json();
-
-  movieContainer.innerHTML = results
-    .map(
-      ({ poster_path, id }) => `
-        <div id=${id} class="menu-movies_item movie">
-          <img src="${imageUrl}${poster_path}" alt="" width="100px">
-        </div>
-      `
-    )
-    .join("");
-
-  for (let movie of movies) {
-    movie.addEventListener("click", () => {
-      getMovieInfo(movie.id);
-    });
-  }
-};
 
 function switchSelected(navElement) {
   const navIcon = document.querySelectorAll(".nav-icon");
@@ -273,6 +277,9 @@ function searchFocus() {
 
 const input = document.querySelector(".input");
 
+
+// SEARCH 
+
 const searchMovies = async (e) => {
   if (e.key == "Enter") {
     const searchContainer = document.querySelector(".search-movies");
@@ -298,6 +305,11 @@ const searchMovies = async (e) => {
     });
   }
 };
+
+
+
+
+// WATCH LIST 
 
 const getWatchList = async () => {
   body.innerHTML = `
@@ -376,11 +388,55 @@ const getWatchList = async () => {
 
 let movies = document.getElementsByClassName("movie");
 
+
+
+
+// CHANGE PAGE 
+
+const pages = document.querySelectorAll('.page')
+
+
+pages.forEach(page => {
+  page.addEventListener('click', () => {
+    pages.forEach(item => item.classList.remove('selected-page'))
+    page.classList.add('selected-page')
+  })
+ })
+
+ const changePage = async (e,type = activeType) => {
+  currentPage = e.target.innerText
+  const response = await fetch(`${baseUrl}/movie/${type}?api_key=${apiKey}&page=${currentPage}`);
+  const { results } = await response.json();
+  movieContainer.innerHTML = results
+    .map(
+      ({ poster_path, id }) => `
+      <div id=${id} class="menu-movies_item movie">
+        <img src="${imageUrl}${poster_path}" alt="" width="100px">
+      </div>
+    `
+    )
+    .join("");
+
+  for (let movie of movies) {
+    movie.addEventListener("click", () => {
+      getMovieInfo(movie.id);
+    });
+  }
+}
+
+
+
+
+
+
+
+
 getTopRatedMovies();
 getMovies();
 watchListPage.addEventListener("click", getWatchList);
-upcoming.addEventListener("click", upcomingMovie);
-toprated.addEventListener("click", topRatedMovies);
-popular.addEventListener("click", popularMovies);
+upcoming.addEventListener("click", () => renderMoviesByType('upcoming'));
+toprated.addEventListener("click", () => renderMoviesByType('top_rated'));
+popular.addEventListener("click", () => renderMoviesByType('popular'));
 input.addEventListener("keypress", searchMovies);
 search.addEventListener("click", searchFocus);
+pages.forEach(page => page.addEventListener('click', changePage))

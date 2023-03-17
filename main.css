@@ -28,7 +28,7 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-direction: column;
     margin-top: 10px;
 }
@@ -144,8 +144,30 @@ img {
     margin-left: 0;
 }
 
-.menu-bar li.active {
+.menu-bar .active {
     border-bottom: 4px solid #3a3f47;
+    position: relative;
+}
+
+.menu-bar .active:after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background-color: rgb(2, 150, 229);
+    animation: fill 0.5s forwards;
+}
+
+@keyframes fill {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
 }
 
 
@@ -166,6 +188,9 @@ img {
 .menu-movies::-webkit-scrollbar {
     display: none;
 }
+
+
+
 
 
 /* NAV ICONS */
@@ -205,6 +230,25 @@ img {
     color: #0296E5;
 }
 
+
+
+
+
+.page.selected-page {
+    border-bottom: 4px solid #3a3f47;
+    position: relative;
+}
+
+.page.selected-page:after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 10px;
+    height: 4px;
+    background-color: rgb(2, 150, 229);
+    animation: fill 0.5s forwards;
+}
 
 
 /* MOVIE SECTION */
@@ -318,9 +362,7 @@ img {
 }
 
 #watch-list_app {
-    width: 375px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
     flex-direction: column;
     padding: 10px;
@@ -329,7 +371,7 @@ img {
 
 .watch-list_nav {
     font-family: 'Montserrat';
-    width: 100%;
+    min-width: 375px;
     color: #ECECEC;
     display: flex;
     justify-content: center;
@@ -351,8 +393,6 @@ img {
 
 
 .saved-movies {
-    height: 100%;
-    width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -366,6 +406,7 @@ img {
     flex-direction: column;
     justify-content: space-between;
     height: 70%;
+    width: 80%;
     margin-left: 10px;
 
 }
@@ -396,6 +437,44 @@ img {
 }
 
 
+.review_person {
+    display: flex;
+    align-items: center;
+}
+
+.review_person i {
+    margin-right: 10px;
+}
+
+
+
+/* PAGINATION  */
+
+
+.pagination {
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 375px;
+
+    overflow-y: hidden;
+    overflow-x: scroll;
+
+}
+
+.pagination::-webkit-scrollbar {
+    display: none;
+}
+
+.pagination li {
+    list-style: none;
+    padding: 15px;
+    color: white;
+    cursor: pointer;
+}
 
 
 
@@ -406,28 +485,34 @@ img {
 }
 
 
+
+
+
+
 /* @MEDIA  */
 
-@media only screen and (max-width: 374px) {
+@media only screen and (max-width: 375px) {
     #app {
         width: 100vw;
     }
+
     #app-detail {
         width: 100vw;
         min-height: max-content;
     }
+
     .search-bar input {
         min-width: 300px;
     }
+
     .top-rated {
-        max-height: 250px;
-        overflow-x: hidden;
-        overflow-y: scroll;
         max-width: 80%;
     }
+
     .movie-number {
         z-index: 10;
     }
+
     .menu-movies {
         width: 100%;
     }
@@ -435,21 +520,37 @@ img {
     .nav {
         justify-content: space-around;
     }
+
+    .watch-list_nav {
+        min-width: 300px;
+
+    }
+
+    .pagination {
+        max-width: 300px;
+    }
+
+
 }
 
 @media only screen and (max-width:340px) {
     .search-bar input {
         min-width: 100px;
     }
+
     .top-rated {
         max-width: 65%;
         overflow-x: scroll;
         overflow-y: hidden
     }
-}
 
-@media only screen and (max-height:668) {
-    #app-detail {
+    .watch-list_nav {
+        min-width: 250px;
 
     }
+
+    .pagination {
+        max-width: 250px;
+    }
+
 }
