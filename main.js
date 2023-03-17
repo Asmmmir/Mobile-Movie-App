@@ -27,6 +27,7 @@ for(let i = 1; i<=500;i++){
   `
 }
 
+let movies = document.getElementsByClassName("movie");
 
    async function renderMoviesByType (type) {
       let response = await fetch(`${baseUrl}/movie/${type}?api_key=${apiKey}&page=${currentPage}`);
@@ -79,7 +80,10 @@ const getTopRatedMovies = async () => {
     `
     )
     .join("");
-};
+
+
+
+}
 
 
 
@@ -105,6 +109,7 @@ const getMovies = async () => {
   for (let movie of movies) {
     movie.addEventListener("click", () => {
       getMovieInfo(movie.id);
+      console.log(movie);
     });
   }
 
@@ -385,9 +390,6 @@ const getWatchList = async () => {
     });
   }
 };
-
-let movies = document.getElementsByClassName("movie");
-
 
 
 
